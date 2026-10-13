@@ -109,6 +109,14 @@
     merkiTexti(g, (x1 + x2) / 2, a.y - 7, s[2]);
   });
 
+  T.loford.forEach(function (s) {
+    var a = p(s[0]), b = p(s[1]);
+    var g = teikna(lagLinur, [s[0], s[1]], "loford");
+    var x1 = Math.min(a.x, b.x) + B / 2, x2 = Math.max(a.x, b.x) - B / 2;
+    lina(g, x1, a.y, x2, a.y);
+    merkiTexti(g, (x1 + x2) / 2, a.y - 9, s[2]);
+  });
+
   T.fostur.forEach(function (s) {
     var a = p(s[0]), b = p(s[1]);
     var g = teikna(lagLinur, [s[0], s[1]], "fostur");

@@ -39,7 +39,7 @@ window.TROJA = {
     { id: "tindareifur", nafn: "Tindareifur", stadur: "sparta", x: 230, y: 180,
       lysing: "Konungur í Spörtu, eiginmaður Ledu. Faðir Klítemnestru og Kastors, stjúpfaðir Helenu og Polídefkesar. Tengdafaðir Agamemnons og Menelásar. Bróðir Íkaríosar." },
     { id: "helena", nafn: "Helena", stadur: "sparta", x: 580, y: 310,
-      lysing: "Dóttir Seifs og Ledu. Eiginkona Menelásar, síðar Parísar. Móðir Hermíónu. Systir Klítemnestru, Kastors og Polídefkesar. Tengdadóttir Príamosar og Hekúbu, mágkona Hektors." },
+      lysing: "Dóttir Seifs og Ledu. Eiginkona Menelásar. Móðir Hermíónu. Systir Klítemnestru, Kastors og Polídefkesar. Fegursta kona heims – sú sem Afródíta lofaði París." },
     { id: "polidefkes", nafn: "Polídefkes", stadur: "sparta", x: 320, y: 310,
       lysing: "Sonur Seifs og Ledu, ódauðlegur. Tvíburabróðir Kastors – saman kallaðir Díoskúrarnir." },
     { id: "klitemnestra", nafn: "Klítemnestra", stadur: "sparta", x: 450, y: 310,
@@ -80,7 +80,7 @@ window.TROJA = {
     { id: "hekuba", nafn: "Hekúba", stadur: "troja", x: 960, y: 180,
       lysing: "Drottning í Tróju, eiginkona Príamosar. Móðir Hektors og Parísar. Dreymdi að hún fæddi logandi kyndil." },
     { id: "hektor", nafn: "Hektor", stadur: "troja", x: 960, y: 310,
-      lysing: "Sonur Príamosar og Hekúbu, bróðir Parísar. Mágur Helenu. Fjarlægur afkomandi Seifs. Mesta hetja Trójumanna." },
+      lysing: "Sonur Príamosar og Hekúbu, bróðir Parísar. Fjarlægur afkomandi Seifs. Mesta hetja Trójumanna." },
     { id: "paris", nafn: "París", stadur: "troja", x: 820, y: 310, tengipersona: true,
       lysing: "Sonur Príamosar og Hekúbu. Borinn út sem ungbarn vegna draums Hekúbu og alinn upp af Agelási hjarðmanni. Dæmdi milli gyðjanna og tók Helenu til Tróju." },
     { id: "agelas", nafn: "Agelás", stadur: "troja", x: 820, y: 440,
@@ -111,7 +111,8 @@ window.TROJA = {
     { fra: "tindareifur", til: "leda", tegund: "hjon" },
     { fra: "agamemnon", til: "klitemnestra", tegund: "hjon" },
     { fra: "menelas", til: "helena", tegund: "hjon" },
-    { fra: "helena", til: "paris", tegund: "hjon", merki: "síðar" },
+    { fra: "afrodita", til: "paris", tegund: "saga", merki: "lofar Helenu" },
+    { fra: "helena", til: "paris", tegund: "saga", merki: "loforð Afródítu" },
     { fra: "priamos", til: "hekuba", tegund: "hjon" },
     { fra: "odysseifur", til: "penelopa", tegund: "hjon" },
     { fra: "peleifur", til: "thetis", tegund: "hjon" },
@@ -158,7 +159,7 @@ window.TROJA = {
     ],
     hjon: [
       ["seifur", "hera"], ["tindareifur", "leda"], ["priamos", "hekuba"],
-      ["klitemnestra", "agamemnon"], ["helena", "menelas", "1."], ["helena", "paris", "2."],
+      ["klitemnestra", "agamemnon"], ["helena", "menelas"],
       ["penelopa", "odysseifur"], ["peleifur", "thetis"]
     ],
     // Systkinahópar án foreldris á myndinni (sviga undir)
@@ -167,6 +168,8 @@ window.TROJA = {
       { born: ["agamemnon", "menelas"], merki: "synir Atreifs" }
     ],
     systkini: [["ikarios", "tindareifur", "bræður"]],
+    // Punktalína milli persóna sem tengjast í sögunni, án þess að segja meira
+    loford: [["helena", "paris", "Loforð Afródítu"]],
     fostur: [["agelas", "paris", "fóstri"], ["hera", "thetis", "ól upp"]],
     // Línur sem kveikt er á með hnöppum (eða birtast þegar persóna er valin)
     aukalinur: [

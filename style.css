@@ -146,6 +146,7 @@ footer { padding-top: 16px; padding-bottom: 40px; color: var(--daufur); font-siz
 #tre .hjon line { stroke: var(--sparta); stroke-width: 2; }
 #tre line.seifs { stroke: var(--olympos); stroke-dasharray: 5 4; stroke-width: 2.5; }
 #tre line.ovisst { stroke-dasharray: 5 4; }
+#tre .loford line { stroke: #c2577a; stroke-width: 2.5; stroke-dasharray: 1 6; stroke-linecap: round; }
 #tre .systkini line { stroke: #2f7a6b; stroke-dasharray: 4 3; }
 #tre .hopur line { stroke-width: 1.5; }
 #tre .fostur path { stroke: #7a6aa8; stroke-dasharray: 6 4; }
@@ -186,3 +187,4 @@ footer { padding-top: 16px; padding-bottom: 40px; color: var(--daufur); font-siz
 .farsima-vis { display: none; font-size: .85rem; color: var(--daufur); margin: 0 0 6px; }
 @media (max-width: 760px) { .farsima-vis { display: block; } }
 @media (max-width: 760px) { #tre { min-width: 1040px; } }
+.s-loford { stroke: #c2577a; stroke-width: 2.5; stroke-dasharray: 1 6; stroke-linecap: round; }
