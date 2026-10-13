@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Persónur Trójustríðsins</title>
+  <meta name="description" content="Gagnvirkt kort og ættarnet persóna í sögunni af Tróju.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="yfir">Ættartengsl í sögnunum um Trójustríðið</p>
+    <h1>Persónur Trójustríðsins</h1>
+    <p class="inngangur">Guðir á Ólympsfjalli, konungsættir í Spörtu og Mýkenu, Ódysseifur frá Íþöku og konungsfjölskyldan í Tróju.
+      Smelltu á stað á kortinu eða persónu í ættarnetinu til að sjá hvernig allt tengist.</p>
+  </header>
+
+  <main>
+    <section class="hluti" aria-labelledby="kort-titill">
+      <h2 id="kort-titill">Kortið</h2>
+      <p class="skyring">Smelltu á stað til að sjá hverjir tengjast honum. Læsti staðurinn opnast í næsta hluta.</p>
+      <div class="kort-vefur">
+        <div id="kort" role="region" aria-label="Kort af Eyjahafi"></div>
+        <aside id="stadur-upplysingar" class="spjald" aria-live="polite">
+          <h3>Veldu stað</h3>
+          <p>Ólympsfjall, Sparta, Mýkena, Íþaka og Trója eru merkt á kortinu.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="hluti" aria-labelledby="net-titill">
+      <h2 id="net-titill">Ættarnetið</h2>
+      <p class="skyring">Smelltu á persónu til að lesa um hana og draga fram tengsl hennar. Dragðu til að færa, skrunaðu til að þysja.</p>
+      <div class="sia" id="sia" aria-label="Sía tengsl"></div>
+      <div class="net-vefur">
+        <div id="net" role="img" aria-label="Ættarnet persóna"></div>
+        <aside id="persona-upplysingar" class="spjald" aria-live="polite">
+          <h3>Veldu persónu</h3>
+          <p>Litur rammans sýnir hvaðan persónan kemur.</p>
+          <ul class="stada-litir" id="stada-litir"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="hluti" aria-labelledby="saga-titill">
+      <h2 id="saga-titill">Það sem hrindir stríðinu af stað</h2>
+      <ol class="tima">
+        <li class="laest-skref">
+          <strong>Brúðkaupið</strong>
+          <span>Í brúðkaupi sem enn er hulið kastar Eris, gyðja sundrungar, gulleplinu „handa þeirri fegurstu“.</span>
+        </li>
+        <li>
+          <strong>Deilan</strong>
+          <span>Hera, Aþena og Afródíta deila um eplið.</span>
+        </li>
+        <li>
+          <strong>Dómur Parísar</strong>
+          <span>París dæmir. Afródíta lofar honum fegurstu konu heims – Helenu, eiginkonu Menelásar.</span>
+        </li>
+        <li>
+          <strong>Ránið</strong>
+          <span>París tekur Helenu með sér frá Spörtu til Tróju.</span>
+        </li>
+        <li>
+          <strong>Eiðurinn</strong>
+          <span>Biðlaeiðurinn, sem Ódysseifur lagði til þegar biðlar Helenu söfnuðust saman í Spörtu, skyldar grísku höfðingjana, með Agamemnon og Menelás í fararbroddi, til að sigla til Tróju.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="hluti las" aria-labelledby="las-titill">
+      <h2 id="las-titill">Næsti hluti</h2>
+      <p>Phþía bíður – og með henni fleiri persónur sem tengja söguna saman. Sláðu inn lykilorðið til að halda áfram.</p>
+      <form id="las-form" autocomplete="off">
+        <label for="lykilord" class="sr">Lykilorð</label>
+        <input id="lykilord" type="password" placeholder="Lykilorð" required>
+        <button type="submit">Opna</button>
+      </form>
+      <p id="las-svar" class="las-svar" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Kortagrunnur: Esri World Physical Map. Persónur í <em>skáletri</em> eru tengipersónur sem ekki voru á upphaflega listanum.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+  <script src="gogn.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trója – næsti hluti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Staðgengill: senda gesti aftur á forsíðu ef lykilorð hefur ekki verið slegið inn.
+    try { if (sessionStorage.getItem("troja-opid") !== "1") location.replace("index.html#las-titill"); } catch (_) {}
+  </script>
+</head>
+<body>
+  <header class="hero">
+    <p class="yfir">Annar hluti</p>
+    <h1>Phþía</h1>
+    <p class="inngangur">Hér kemur næsti hluti: Þetis, Peleifur og Akkilles, brúðkaupið þar sem gulleplinu var kastað.</p>
+  </header>
+  <main>
+    <section class="hluti">
+      <div class="spjald">
+        <h3>Í vinnslu</h3>
+        <p>Þessi síða er staðgengill. Efnið verður sett inn síðar.</p>
+        <p><a href="index.html">← Aftur á forsíðu</a></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
