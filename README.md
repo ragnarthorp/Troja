@@ -2,8 +2,8 @@
 
 Gagnvirkur vefur um persónur og ættartengsl í sögnunum um Trójustríðið.
 
-- `index.html` – inngangssíða með korti (Ólympsfjall, Sparta, Mýkena, Íþaka, Trója) og gagnvirku ættartré.
-- `framhald.html` – staðgengill fyrir næsta hluta (Phþía), opnast með lykilorði.
+- `index.html` – inngangssíða með korti (Ólympsfjall, Sparta, Mýkena, Íþaka, Phþía, Trója) og gagnvirku ættartré.
+- `framhald.html` – staðgengill fyrir næsta hluta (sonur Þetisar og Peleifs), opnast með lykilorði.
 - `gogn.js` – allar persónur, staðir og tengsl. Bættu við eða breyttu hér.
 - `app.js` – kort (Leaflet) og ættartré (teiknað sem SVG). Uppsetning trésins er í `tre` í `gogn.js`.
 

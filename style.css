@@ -10,6 +10,7 @@
   --mykena: #2f5d8a;
   --troja: #2f7a4f;
   --ithaka: #2f8a9a;
+  --fthia: #8a5a9a;
   --laest: #9a8f7a;
   --skuggi: 0 1px 3px rgba(60, 40, 20, .12);
 }
@@ -140,7 +141,7 @@ footer { padding-top: 16px; padding-bottom: 40px; color: var(--daufur); font-siz
   background: var(--flotur); border: 1px solid var(--lina); border-radius: 10px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-#tre { display: block; width: 100%; min-width: 900px; height: auto; font-family: "Source Sans 3", system-ui, sans-serif; }
+#tre { display: block; width: 100%; min-width: 1040px; height: auto; font-family: "Source Sans 3", system-ui, sans-serif; }
 #tre line, #tre path { fill: none; stroke: var(--daufur); stroke-width: 2; }
 #tre .hjon line { stroke: var(--sparta); stroke-width: 2; }
 #tre line.seifs { stroke: var(--olympos); stroke-dasharray: 5 4; stroke-width: 2.5; }

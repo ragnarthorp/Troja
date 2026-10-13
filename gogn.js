@@ -1,5 +1,5 @@
 // Gögn fyrir inngangssíðuna: staðir, persónur og tengsl.
-// Persónur frá Phþíu (Þetis, Peleifur, Akkilles) eru
+// Sonur Þetisar og Peleifs er
 // viljandi ekki hér – þær bíða næsta hluta á bak við lykilorð.
 
 window.TROJA = {
@@ -12,21 +12,22 @@ window.TROJA = {
       lysing: "Virkisborg Agamemnons í Argólis, voldugasta ríki Grikkja." },
     { id: "troja", nafn: "Trója", lat: 39.957, lng: 26.239,
       lysing: "Borg Príamosar við Hellusund, í norðvesturhluta Litlu-Asíu (nú Tyrkland)." },
+    { id: "fthia", nafn: "Phþía", lat: 39.29, lng: 22.38,
+      lysing: "Ríki Peleifs í Þessalíu, sunnan við Ólympsfjall." },
     { id: "ithaka", nafn: "Íþaka", lat: 38.37, lng: 20.72,
       lysing: "Lítil eyja í Jónahafi, ríki Laertesar og síðar Ódysseifs." }
   ],
 
   // Staðir sem verða opnaðir síðar – sýndir sem læstir á kortinu.
   laestirStadir: [
-    { id: "fthia", nafn: "Phþía", lat: 39.29, lng: 22.38 }
   ],
 
   personur: [
     // Guðirnir
     { id: "seifur", nafn: "Seifur", stadur: "olympos", x: 585, y: 50,
-      lysing: "Sonur títananna Krónosar og Reu. Bróðir og eiginmaður Heru. Faðir Aþenu, Helenu og Polídefkesar, og Afródítu samkvæmt Hómer. Forfaðir Príamosar, Hektors, Agamemnons, Menelásar og Ódysseifs – og fleiri sem enn eru huldir." },
+      lysing: "Sonur títananna Krónosar og Reu. Bróðir og eiginmaður Heru. Faðir Aþenu, Helenu og Polídefkesar, og Afródítu samkvæmt Hómer. Forfaðir Príamosar, Hektors, Agamemnons, Menelásar, Ódysseifs og Peleifs – og fleiri sem enn eru huldir." },
     { id: "hera", nafn: "Hera", stadur: "olympos", x: 735, y: 50,
-      lysing: "Dóttir Krónosar og Reu. Systir og eiginkona Seifs. Stjúpmóðir Aþenu." },
+      lysing: "Dóttir Krónosar og Reu. Systir og eiginkona Seifs. Stjúpmóðir Aþenu. Ól upp sædísina Þetisi." },
     { id: "athena", nafn: "Aþena", stadur: "olympos", x: 520, y: 180,
       lysing: "Dóttir Seifs og Metisar. Stökk fullvopnuð úr höfði Seifs. Hálfsystir Helenu og Polídefkesar." },
     { id: "afrodita", nafn: "Afródíta", stadur: "olympos", x: 650, y: 180,
@@ -65,17 +66,24 @@ window.TROJA = {
     { id: "penelopa", nafn: "Penelópa", stadur: "ithaka", x: 60, y: 310, aukapersona: true,
       lysing: "Dóttir Íkaríosar og eiginkona Ódysseifs. Bræðrungur Helenu, Klítemnestru, Kastors og Polídefkesar. Móðir Telemakkosar. Ekki á upphaflega listanum – sýnd til skýringar." },
 
+    // Phþía
+    { id: "peleifur", nafn: "Peleifur", stadur: "fthia", x: 1110, y: 180,
+      aett: "Seifur → Ajakos → Peleifur",
+      lysing: "Sonur Ajakosar og sonarsonur Seifs. Konungur í Phþíu og eiginmaður Þetisar – einn fárra dauðlegra manna sem fékk gyðju fyrir konu. Allir guðirnir mættu í brúðkaupið, nema einn." },
+    { id: "thetis", nafn: "Þetis", stadur: "fthia", x: 1250, y: 180,
+      lysing: "Sædís, dóttir sjávarguðsins Nereifs. Alin upp af Heru. Seifur og Póseidon girntust hana báðir, en spáð var að hún myndi ala son sem yrði meiri en faðir hans. Því var hún gefin dauðlegum manni, Peleifi. Í brúðkaupi þeirra kastaði Eris gulleplinu." },
+
     // Trója
-    { id: "priamos", nafn: "Príamos", stadur: "troja", x: 830, y: 180,
+    { id: "priamos", nafn: "Príamos", stadur: "troja", x: 820, y: 180,
       aett: "Seifur → Dardanos → Erikþóníos → Trós → Ílos → Laómedon → Príamos",
       lysing: "Konungur í Tróju. Eiginmaður Hekúbu. Faðir Hektors og Parísar." },
-    { id: "hekuba", nafn: "Hekúba", stadur: "troja", x: 970, y: 180,
+    { id: "hekuba", nafn: "Hekúba", stadur: "troja", x: 960, y: 180,
       lysing: "Drottning í Tróju, eiginkona Príamosar. Móðir Hektors og Parísar. Dreymdi að hún fæddi logandi kyndil." },
-    { id: "hektor", nafn: "Hektor", stadur: "troja", x: 970, y: 310,
+    { id: "hektor", nafn: "Hektor", stadur: "troja", x: 960, y: 310,
       lysing: "Sonur Príamosar og Hekúbu, bróðir Parísar. Mágur Helenu. Fjarlægur afkomandi Seifs. Mesta hetja Trójumanna." },
-    { id: "paris", nafn: "París", stadur: "troja", x: 830, y: 310, tengipersona: true,
+    { id: "paris", nafn: "París", stadur: "troja", x: 820, y: 310, tengipersona: true,
       lysing: "Sonur Príamosar og Hekúbu. Borinn út sem ungbarn vegna draums Hekúbu og alinn upp af Agelási hjarðmanni. Dæmdi milli gyðjanna og tók Helenu til Tróju." },
-    { id: "agelas", nafn: "Agelás", stadur: "troja", x: 1110, y: 180,
+    { id: "agelas", nafn: "Agelás", stadur: "troja", x: 820, y: 440,
       lysing: "Hjarðmaður. Ekki blóðskyldur neinum á listanum. Fóstri Parísar." }
   ],
 
@@ -106,6 +114,7 @@ window.TROJA = {
     { fra: "helena", til: "paris", tegund: "hjon", merki: "síðar" },
     { fra: "priamos", til: "hekuba", tegund: "hjon" },
     { fra: "odysseifur", til: "penelopa", tegund: "hjon" },
+    { fra: "peleifur", til: "thetis", tegund: "hjon" },
 
     // Systkini sem ekki sjást í gegnum sameiginlegt foreldri á kortinu
     { fra: "kastor", til: "polidefkes", tegund: "systkini", merki: "tvíburar" },
@@ -117,12 +126,14 @@ window.TROJA = {
     { fra: "tindareifur", til: "polidefkes", tegund: "stjup", merki: "stjúpfaðir" },
     { fra: "hera", til: "athena", tegund: "stjup", merki: "stjúpmóðir" },
     { fra: "agelas", til: "paris", tegund: "stjup", merki: "fóstri" },
+    { fra: "hera", til: "thetis", tegund: "stjup", merki: "fóstra" },
 
     // Fjarlæg ætt frá Seifi
     { fra: "seifur", til: "agamemnon", tegund: "afkomandi", merki: "um Tantalos, Pelops, Atreif" },
     { fra: "seifur", til: "menelas", tegund: "afkomandi", merki: "um Tantalos, Pelops, Atreif" },
     { fra: "seifur", til: "priamos", tegund: "afkomandi", merki: "um Dardanos … Laómedon" },
     { fra: "seifur", til: "odysseifur", tegund: "afkomandi", merki: "um Hermes og Átólýkos" },
+    { fra: "seifur", til: "peleifur", tegund: "afkomandi", merki: "um Ajakos" },
 
     // Atburðir sögunnar
     { fra: "paris", til: "hera", tegund: "saga", merki: "dómur" },
@@ -148,7 +159,7 @@ window.TROJA = {
     hjon: [
       ["seifur", "hera"], ["tindareifur", "leda"], ["priamos", "hekuba"],
       ["klitemnestra", "agamemnon"], ["helena", "menelas", "1."], ["helena", "paris", "2."],
-      ["penelopa", "odysseifur"]
+      ["penelopa", "odysseifur"], ["peleifur", "thetis"]
     ],
     // Systkinahópar án foreldris á myndinni (sviga undir)
     hopar: [
@@ -156,7 +167,7 @@ window.TROJA = {
       { born: ["agamemnon", "menelas"], merki: "synir Atreifs" }
     ],
     systkini: [["ikarios", "tindareifur", "bræður"]],
-    fostur: [["agelas", "paris", "fóstri"]],
+    fostur: [["agelas", "paris", "fóstri"], ["hera", "thetis", "ól upp"]],
     // Línur sem kveikt er á með hnöppum (eða birtast þegar persóna er valin)
     aukalinur: [
       { fra: "seifur", til: "polidefkes", tegund: "seifsborn", merki: "faðir" },
@@ -165,6 +176,7 @@ window.TROJA = {
       { fra: "seifur", til: "agamemnon", tegund: "afkomandi", merki: "um Tantalos" },
       { fra: "seifur", til: "menelas", tegund: "afkomandi", merki: "um Tantalos" },
       { fra: "seifur", til: "odysseifur", tegund: "afkomandi", merki: "um Hermes" },
+      { fra: "seifur", til: "peleifur", tegund: "afkomandi", merki: "um Ajakos" },
       { fra: "paris", til: "afrodita", tegund: "saga", merki: "dómur" },
       { fra: "afrodita", til: "helena", tegund: "saga", merki: "lofar París" },
       { fra: "odysseifur", til: "helena", tegund: "saga", merki: "biðill" },

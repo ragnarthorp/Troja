@@ -105,9 +105,11 @@
   T.fostur.forEach(function (s) {
     var a = p(s[0]), b = p(s[1]);
     var g = teikna(lagLinur, [s[0], s[1]], "fostur");
-    var x1 = a.x, y1 = a.y + H / 2, x2 = b.x + B / 2 - 10, y2 = b.y - H / 2;
-    svgStak("path", { d: "M" + x1 + " " + y1 + " C " + x1 + " " + (y1 + 60) + ", " + (x2 + 80) + " " + (y2 - 10) + ", " + x2 + " " + y2 }, g);
-    merkiTexti(g, x1 - 8, y1 + 48, s[2], "haegri");
+    // Frá neðri brún efra spjalds að efri brún neðra spjalds
+    var e = a.y <= b.y ? a : b, n = a.y <= b.y ? b : a;
+    var x1 = e.x, y1 = e.y + H / 2, x2 = n.x, y2 = n.y - H / 2, my = (y1 + y2) / 2;
+    svgStak("path", { d: "M" + x1 + " " + y1 + " C " + x1 + " " + my + ", " + x2 + " " + my + ", " + x2 + " " + y2 }, g);
+    merkiTexti(g, (x1 + x2) / 2 + (x1 === x2 ? 8 : 0), my - 5, s[2], x1 === x2 ? "vinstri" : "");
   });
 
   // Aukalínur (ætt frá Seifi, atburðir) – sveigðar línur á bak við spjöldin
@@ -209,7 +211,8 @@
       case "foreldri": return (ut ? "Barn: " : "Foreldri: ") + annar + (t.merki ? " (" + t.merki + ")" : "");
       case "hjon": return "Maki: " + annar + (t.merki ? " (" + t.merki + ")" : "");
       case "systkini": return "Systkini: " + annar + (t.merki ? " – " + t.merki : "");
-      case "stjup": return ut ? stor(t.merki) + " hjá: " + annar : stor(t.merki) + ": " + annar;
+      case "stjup": return ut ? (t.merki.indexOf("stjúp") === 0 ? "Stjúpbarn: " : "Fósturbarn: ") + annar
+                              : stor(t.merki) + ": " + annar;
       case "afkomandi": return ut ? "Afkomandi: " + annar + " (" + t.merki + ")" : "Forfaðir: " + annar + " (" + t.merki + ")";
       case "saga": return ut ? stor(t.merki) + ": " + annar : stor(t.merki) + ": " + annar;
     }
