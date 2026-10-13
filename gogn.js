@@ -12,8 +12,8 @@ window.TROJA = {
       lysing: "Virkisborg Agamemnons í Argólis, voldugasta ríki Grikkja." },
     { id: "troja", nafn: "Trója", lat: 39.957, lng: 26.239,
       lysing: "Borg Príamosar við Hellusund, í norðvesturhluta Litlu-Asíu (nú Tyrkland)." },
-    { id: "fthia", nafn: "Phþía", lat: 39.29, lng: 22.38,
-      lysing: "Ríki Peleifs í Þessalíu, sunnan við Ólympsfjall." },
+    { id: "thessalia", nafn: "Þessalía", lat: 39.29, lng: 22.38,
+      lysing: "Frjósöm slétta í Norður-Grikklandi, sunnan við Ólympsfjall. Þar ríkti Peleifur, í konungsríkinu Phþíu í suðurhluta Þessalíu." },
     { id: "ithaka", nafn: "Íþaka", lat: 38.37, lng: 20.72,
       lysing: "Lítil eyja í Jónahafi, ríki Laertesar og síðar Ódysseifs." }
   ],
@@ -66,11 +66,11 @@ window.TROJA = {
     { id: "penelopa", nafn: "Penelópa", stadur: "ithaka", x: 60, y: 310, aukapersona: true,
       lysing: "Dóttir Íkaríosar og eiginkona Ódysseifs. Bræðrungur Helenu, Klítemnestru, Kastors og Polídefkesar. Móðir Telemakkosar. Ekki á upphaflega listanum – sýnd til skýringar." },
 
-    // Phþía
-    { id: "peleifur", nafn: "Peleifur", stadur: "fthia", x: 1110, y: 180,
+    // Þessalía
+    { id: "peleifur", nafn: "Peleifur", stadur: "thessalia", x: 1110, y: 180,
       aett: "Seifur → Ajakos → Peleifur",
-      lysing: "Sonur Ajakosar og sonarsonur Seifs. Konungur í Phþíu og eiginmaður Þetisar – einn fárra dauðlegra manna sem fékk gyðju fyrir konu. Allir guðirnir mættu í brúðkaupið, nema einn." },
-    { id: "thetis", nafn: "Þetis", stadur: "fthia", x: 1250, y: 180,
+      lysing: "Sonur Ajakosar og sonarsonur Seifs. Konungur í Phþíu í Þessalíu og eiginmaður Þetisar – einn fárra dauðlegra manna sem fékk gyðju fyrir konu. Allir guðirnir mættu í brúðkaupið, nema einn." },
+    { id: "thetis", nafn: "Þetis", stadur: "thessalia", x: 1250, y: 180,
       lysing: "Sædís, dóttir sjávarguðsins Nereifs. Alin upp af Heru. Seifur og Póseidon girntust hana báðir, en spáð var að hún myndi ala son sem yrði meiri en faðir hans. Því var hún gefin dauðlegum manni, Peleifi. Í brúðkaupi þeirra kastaði Eris gulleplinu." },
 
     // Trója
