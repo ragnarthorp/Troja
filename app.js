@@ -12,98 +12,174 @@
 
   function stadaLitur(id) { return litur(id) || "#888"; }
 
-  // ---------- Ættarnetið ----------
+  // ---------- Ættartréð ----------
 
-  var stak = [];
-  G.personur.forEach(function (p) {
-    stak.push({
-      group: "nodes",
-      data: { id: p.id, label: p.nafn, litur: stadaLitur(p.stadur) },
-      position: { x: p.x, y: p.y },
-      classes: p.tengipersona ? "tengi" : ""
-    });
-  });
-  G.tengsl.forEach(function (t, i) {
-    stak.push({
-      group: "edges",
-      data: {
-        id: "t" + i, source: t.fra, target: t.til,
-        label: t.merki || "", litur: G.tegundir[t.tegund].litur
-      },
-      classes: t.tegund
-    });
-  });
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var B = 112, H = 50; // breidd og hæð spjalda
+  var T = G.tre;
+  var svg = document.getElementById("tre");
+  var lagLinur = svgStak("g", { "class": "lag-linur" });
+  var lagAuka = svgStak("g", { "class": "lag-auka" });
+  var lagSpjold = svgStak("g", { "class": "lag-spjold" });
+  svg.appendChild(lagAuka);
+  svg.appendChild(lagLinur);
+  svg.appendChild(lagSpjold);
 
-  var texti = litur("texti");
-  var flotur = litur("flotur");
-
-  var cy = cytoscape({
-    container: document.getElementById("net"),
-    elements: stak,
-    layout: { name: "preset", padding: 30 },
-    minZoom: 0.3,
-    maxZoom: 2.5,
-    wheelSensitivity: 0.3,
-    style: [
-      { selector: "node", style: {
-        "shape": "round-rectangle",
-        "width": function (n) { return n.data("label").length * 11 + 28; }, "height": 40,
-        "background-color": flotur,
-        "border-width": 3, "border-color": "data(litur)",
-        "label": "data(label)", "color": texti,
-        "font-family": "'Source Sans 3', sans-serif", "font-size": 22, "font-weight": 600,
-        "text-valign": "center", "text-halign": "center"
-      }},
-      { selector: "node.tengi", style: { "font-style": "italic" } },
-      { selector: "edge", style: {
-        "width": 2, "line-color": "data(litur)", "target-arrow-color": "data(litur)",
-        "curve-style": "bezier", "opacity": 0.85,
-        "label": "data(label)", "font-size": 15, "color": texti,
-        "text-background-color": flotur, "text-background-opacity": 0.85, "text-background-padding": "2px",
-        "text-rotation": "autorotate"
-      }},
-      { selector: "edge.foreldri", style: { "target-arrow-shape": "triangle" } },
-      { selector: "edge.hjon", style: { "width": 4 } },
-      { selector: "edge.systkini", style: { "line-style": "solid", "width": 3 } },
-      { selector: "edge.stjup", style: { "line-style": "dashed", "target-arrow-shape": "triangle" } },
-      { selector: "edge.afkomandi", style: { "line-style": "dotted", "target-arrow-shape": "triangle", "curve-style": "unbundled-bezier", "control-point-distances": 60 } },
-      { selector: "edge.saga", style: { "line-style": "dashed", "target-arrow-shape": "vee", "width": 2.5 } },
-      { selector: ".dauft", style: { "opacity": 0.12 } },
-      { selector: "node.valid", style: { "border-width": 5, "background-color": "data(litur)", "color": "#fff" } },
-      { selector: ".falid", style: { "display": "none" } }
-    ]
-  });
-
-  // Fela fjarlæga afkomendur í byrjun til að netið sé læsilegra.
-  var faldarTegundir = { afkomandi: true };
-
-  function uppfaeraSiu() {
-    cy.edges().forEach(function (e) {
-      var tegund = e.classes().filter(function (c) { return G.tegundir[c]; })[0];
-      e.toggleClass("falid", !!faldarTegundir[tegund]);
-    });
+  function svgStak(nafn, eigindi, foreldri) {
+    var el = document.createElementNS(SVGNS, nafn);
+    Object.keys(eigindi || {}).forEach(function (k) { el.setAttribute(k, eigindi[k]); });
+    if (foreldri) foreldri.appendChild(el);
+    return el;
+  }
+  function p(id) { return personurEftirId[id]; }
+  function teikna(lag, ids, klasi) {
+    return svgStak("g", { "class": "tre-hluti " + (klasi || ""), "data-ids": ids.join(" ") }, lag);
+  }
+  function lina(g, x1, y1, x2, y2, klasi) {
+    return svgStak("line", { x1: x1, y1: y1, x2: x2, y2: y2, "class": klasi || "" }, g);
+  }
+  function merkiTexti(g, x, y, texti, klasi) {
+    var t = svgStak("text", { x: x, y: y, "class": "tre-merki " + (klasi || ""), "text-anchor": "middle" }, g);
+    t.textContent = texti;
+    return t;
   }
 
+  // Hjónabönd: tvöföld lína milli maka (lárétt eða lóðrétt)
+  T.hjon.forEach(function (h) {
+    var a = p(h[0]), b = p(h[1]);
+    var g = teikna(lagLinur, [h[0], h[1]], "hjon");
+    if (a.y === b.y) {
+      var v = a.x < b.x ? a : b, hg = a.x < b.x ? b : a;
+      var x1 = v.x + B / 2, x2 = hg.x - B / 2;
+      lina(g, x1, a.y - 3, x2, a.y - 3); lina(g, x1, a.y + 3, x2, a.y + 3);
+      if (h[2]) merkiTexti(g, (x1 + x2) / 2, a.y - 9, h[2] + " hjónaband");
+    } else {
+      var e = a.y < b.y ? a : b, n = a.y < b.y ? b : a;
+      var y1 = e.y + H / 2, y2 = n.y - H / 2;
+      lina(g, a.x - 3, y1, a.x - 3, y2); lina(g, a.x + 3, y1, a.x + 3, y2);
+      if (h[2]) merkiTexti(g, a.x + 10, (y1 + y2) / 2 + 4, h[2] + " hjónaband", "vinstri");
+    }
+  });
+
+  // Fjölskyldur: lína niður frá foreldrum að einni slá, börnin hlið við hlið undir
+  T.fjolskyldur.forEach(function (f) {
+    var foreldrar = f.foreldrar.map(p), born = f.born.map(p);
+    var g = teikna(lagLinur, f.foreldrar.concat(f.born), "fjolskylda");
+    var mx, my;
+    if (foreldrar.length === 2) {
+      mx = (foreldrar[0].x + foreldrar[1].x) / 2; my = foreldrar[0].y + 3;
+    } else {
+      mx = foreldrar[0].x; my = foreldrar[0].y + H / 2;
+    }
+    var barnY = born[0].y - H / 2;
+    var slaY = barnY - 22;
+    lina(g, mx, my, mx, slaY);
+    var xs = born.map(function (b) { return b.x; }).concat([mx]);
+    lina(g, Math.min.apply(null, xs), slaY, Math.max.apply(null, xs), slaY);
+    born.forEach(function (b) {
+      var klasi = (f.annarFadir || []).indexOf(b.id) >= 0 ? "seifs" :
+                  (f.ovisst || []).indexOf(b.id) >= 0 ? "ovisst" : "";
+      lina(g, b.x, slaY, b.x, barnY, klasi);
+    });
+    if (f.ovisst) merkiTexti(g, p(f.ovisst[0]).x + 34, slaY + 14, "skv. Hómer");
+  });
+
+  // Systkinahópar án foreldris á myndinni: svigi undir spjöldunum
+  T.hopar.forEach(function (h) {
+    var born = h.born.map(p);
+    var g = teikna(lagLinur, h.born, "hopur");
+    var y0 = born[0].y + H / 2 + 2, y1 = y0 + 10;
+    born.forEach(function (b) { lina(g, b.x, y0, b.x, y1); });
+    lina(g, born[0].x, y1, born[born.length - 1].x, y1);
+    merkiTexti(g, (born[0].x + born[born.length - 1].x) / 2, y1 + 15, h.merki);
+  });
+
+  T.systkini.forEach(function (s) {
+    var a = p(s[0]), b = p(s[1]);
+    var g = teikna(lagLinur, [s[0], s[1]], "systkini");
+    var x1 = Math.min(a.x, b.x) + B / 2, x2 = Math.max(a.x, b.x) - B / 2;
+    lina(g, x1, a.y, x2, a.y);
+    merkiTexti(g, (x1 + x2) / 2, a.y - 7, s[2]);
+  });
+
+  T.fostur.forEach(function (s) {
+    var a = p(s[0]), b = p(s[1]);
+    var g = teikna(lagLinur, [s[0], s[1]], "fostur");
+    var x1 = a.x, y1 = a.y + H / 2, x2 = b.x + B / 2 - 10, y2 = b.y - H / 2;
+    svgStak("path", { d: "M" + x1 + " " + y1 + " C " + x1 + " " + (y1 + 60) + ", " + (x2 + 80) + " " + (y2 - 10) + ", " + x2 + " " + y2 }, g);
+    merkiTexti(g, x1 - 8, y1 + 48, s[2], "haegri");
+  });
+
+  // Aukalínur (ætt frá Seifi, atburðir) – sveigðar línur á bak við spjöldin
+  var aukalinur = T.aukalinur.map(function (t) {
+    var a = p(t.fra), b = p(t.til);
+    var g = teikna(lagAuka, [t.fra, t.til], "auka " + t.tegund);
+    var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    var dx = b.x - a.x, dy = b.y - a.y, len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var bogi = Math.min(90, len * 0.25);
+    var cx = mx - dy / len * bogi, cy = my + dx / len * bogi;
+    svgStak("path", { d: "M" + a.x + " " + a.y + " Q " + cx + " " + cy + ", " + b.x + " " + b.y,
+                      stroke: G.tegundir[t.tegund].litur }, g);
+    var lx = 0.25 * a.x + 0.5 * cx + 0.25 * b.x, ly = 0.25 * a.y + 0.5 * cy + 0.25 * b.y;
+    merkiTexti(g, lx, ly + 4, t.merki, "auka-merki");
+    return { g: g, t: t };
+  });
+
+  // Spjöld persóna
+  var annarFadir = {};
+  T.fjolskyldur.forEach(function (f) { (f.annarFadir || []).forEach(function (id) { annarFadir[id] = true; }); });
+
+  G.personur.forEach(function (per) {
+    var g = teikna(lagSpjold, [per.id], "spjald-hnutur" + (per.aukapersona ? " aukapersona" : ""));
+    g.setAttribute("tabindex", "0");
+    g.setAttribute("role", "button");
+    g.setAttribute("aria-label", per.nafn);
+    g.style.setProperty("--hus", stadaLitur(per.stadur));
+    svgStak("rect", { x: per.x - B / 2, y: per.y - H / 2, width: B, height: H, rx: 9, "class": "kassi" }, g);
+    svgStak("rect", { x: per.x - B / 2 + 1, y: per.y - H / 2 + 1, width: 6, height: H - 2, rx: 3, "class": "rond" }, g);
+    var nafn = svgStak("text", { x: per.x + 3, y: per.y - 1, "text-anchor": "middle", "class": "nafn" + (per.tengipersona || per.aukapersona ? " skaletrad" : "") }, g);
+    nafn.textContent = per.nafn;
+    var hus = svgStak("text", { x: per.x + 3, y: per.y + 15, "text-anchor": "middle", "class": "hus" }, g);
+    hus.textContent = per.aukapersona ? "til skýringar" : stadirEftirId[per.stadur].nafn;
+    if (annarFadir[per.id]) {
+      var st = svgStak("g", { "class": "stjarna" }, g);
+      svgStak("circle", { cx: per.x + B / 2 - 4, cy: per.y - H / 2 + 4, r: 10 }, st);
+      var tx = svgStak("text", { x: per.x + B / 2 - 4, y: per.y - H / 2 + 8, "text-anchor": "middle" }, st);
+      tx.textContent = "★";
+      svgStak("title", {}, st).textContent = "Faðir: Seifur";
+    }
+    g.addEventListener("click", function (e) { e.stopPropagation(); veljaPersonu(per.id); });
+    g.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); veljaPersonu(per.id); }
+    });
+  });
+  svg.addEventListener("click", function () { hreinsa(); });
+
+  // Hnappar fyrir aukalínur
+  var kveikt = { seifsborn: false, afkomandi: false, saga: false };
+  var hnappaNofn = { seifsborn: "Faðerni Seifs", afkomandi: "Ætt frá Seifi", saga: "Atburðir sögunnar" };
+  var valinn = null;
   var sia = document.getElementById("sia");
-  Object.keys(G.tegundir).forEach(function (k) {
-    var t = G.tegundir[k];
+  Object.keys(kveikt).forEach(function (k) {
     var lbl = document.createElement("label");
     var cb = document.createElement("input");
     cb.type = "checkbox";
-    cb.checked = !faldarTegundir[k];
-    cb.addEventListener("change", function () {
-      faldarTegundir[k] = !cb.checked;
-      uppfaeraSiu();
-    });
+    cb.addEventListener("change", function () { kveikt[k] = cb.checked; uppfaeraAuka(); });
     var strik = document.createElement("span");
     strik.className = "strik";
-    strik.style.background = t.litur;
-    lbl.appendChild(cb);
-    lbl.appendChild(strik);
-    lbl.appendChild(document.createTextNode(t.nafn));
+    strik.style.background = G.tegundir[k].litur;
+    lbl.appendChild(cb); lbl.appendChild(strik);
+    lbl.appendChild(document.createTextNode(hnappaNofn[k]));
     sia.appendChild(lbl);
   });
-  uppfaeraSiu();
+
+  function uppfaeraAuka() {
+    aukalinur.forEach(function (a) {
+      var synd = kveikt[a.t.tegund] || (valinn && (a.t.fra === valinn || a.t.til === valinn));
+      a.g.classList.toggle("falid", !synd);
+    });
+  }
+  uppfaeraAuka();
 
   // Litaskýring staða
   var stadaLitir = document.getElementById("stada-litir");
@@ -113,21 +189,29 @@
     stadaLitir.appendChild(li);
   });
 
-  // Lýsing á einu tengslum frá sjónarhóli persónu
+  // Draga fram hóp persóna; línur haldast skýrar ef þær snerta hópinn
+  function dragaFram(hopur, adalId) {
+    svg.classList.add("val");
+    svg.querySelectorAll(".tre-hluti").forEach(function (el) {
+      var ids = el.getAttribute("data-ids").split(" ");
+      var inni = adalId ? ids.indexOf(adalId) >= 0 || (ids.length === 1 && hopur[ids[0]])
+                        : ids.every(function (id) { return hopur[id]; });
+      el.classList.toggle("dauft", !inni);
+      el.classList.toggle("valid", ids.length === 1 && ids[0] === adalId);
+    });
+  }
+
   function lysaTengslum(t, fra) {
-    var annar = personurEftirId[t.fra === fra ? t.til : t.fra].nafn;
+    var annar = p(t.fra === fra ? t.til : t.fra).nafn;
     var ut = t.fra === fra;
+    function stor(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
     switch (t.tegund) {
-      case "foreldri": return (ut ? "Foreldri " : "Barn ") + annar + (t.merki ? " (" + t.merki + ")" : "");
-      case "hjon": return "Gift(ur) " + annar + (t.merki ? " (" + t.merki + ")" : "");
-      case "systkini": return "Systkini " + annar + (t.merki ? " – " + t.merki : "");
-      case "stjup": return ut ? (t.merki.charAt(0).toUpperCase() + t.merki.slice(1)) + " " + annar
-                              : annar + " er " + t.merki;
-      case "maegdir": return ut ? "Mægðir við " + annar + " (" + t.merki + ")"
-                                : "Mægðir við " + annar + " (" + annar + " er " + t.merki + ")";
-      case "afkomandi": return ut ? "Forfaðir " + annar : "Afkomandi " + annar + " (" + t.merki + ")";
-      case "saga": return ut ? t.merki.charAt(0).toUpperCase() + t.merki.slice(1) + ": " + annar
-                             : annar + " – " + t.merki;
+      case "foreldri": return (ut ? "Barn: " : "Foreldri: ") + annar + (t.merki ? " (" + t.merki + ")" : "");
+      case "hjon": return "Maki: " + annar + (t.merki ? " (" + t.merki + ")" : "");
+      case "systkini": return "Systkini: " + annar + (t.merki ? " – " + t.merki : "");
+      case "stjup": return ut ? stor(t.merki) + " hjá: " + annar : stor(t.merki) + ": " + annar;
+      case "afkomandi": return ut ? "Afkomandi: " + annar + " (" + t.merki + ")" : "Forfaðir: " + annar + " (" + t.merki + ")";
+      case "saga": return ut ? stor(t.merki) + ": " + annar : stor(t.merki) + ": " + annar;
     }
     return annar;
   }
@@ -136,20 +220,24 @@
   var upphafsSpjald = personaSpjald.innerHTML;
 
   function veljaPersonu(id) {
-    var p = personurEftirId[id];
-    var hnutur = cy.getElementById(id);
-    var hverfi = hnutur.closedNeighborhood();
-    cy.elements().removeClass("valid").addClass("dauft");
-    hverfi.removeClass("dauft");
-    hnutur.addClass("valid");
-
-    var s = stadirEftirId[p.stadur];
+    var per = p(id);
+    valinn = id;
     var tengsl = G.tengsl.filter(function (t) { return t.fra === id || t.til === id; });
-    var html = '<span class="stadur-merki" style="color:' + stadaLitur(p.stadur) + '">' + s.nafn + "</span>" +
-      "<h3>" + (p.tengipersona ? "<em>" + p.nafn + "</em>" : p.nafn) + "</h3>" +
-      "<p>" + p.lysing + "</p>";
-    if (p.aett) html += '<p class="aett">' + p.aett + "</p>";
-    html += "<strong>Tengsl á kortinu</strong><ul class=\"tengsl-listi\">" +
+    var hopur = {}; hopur[id] = true;
+    tengsl.forEach(function (t) { hopur[t.fra] = true; hopur[t.til] = true; });
+    T.fjolskyldur.forEach(function (f) {
+      if (f.born.indexOf(id) >= 0) f.born.forEach(function (b) { hopur[b] = true; });
+    });
+    dragaFram(hopur, id);
+    uppfaeraAuka();
+
+    var s = stadirEftirId[per.stadur];
+    var html = '<span class="stadur-merki" style="color:' + stadaLitur(per.stadur) + '">' +
+      s.nafn + (per.aukapersona ? " · til skýringar" : "") + "</span>" +
+      "<h3>" + (per.tengipersona || per.aukapersona ? "<em>" + per.nafn + "</em>" : per.nafn) + "</h3>" +
+      "<p>" + per.lysing + "</p>";
+    if (per.aett) html += '<p class="aett">' + per.aett + "</p>";
+    html += "<strong>Tengsl</strong><ul class=\"tengsl-listi\">" +
       tengsl.map(function (t) { return "<li>" + lysaTengslum(t, id) + "</li>"; }).join("") + "</ul>" +
       '<p><button class="flis" id="hreinsa">Sýna alla</button></p>';
     personaSpjald.innerHTML = html;
@@ -157,12 +245,12 @@
   }
 
   function hreinsa() {
-    cy.elements().removeClass("dauft valid");
+    valinn = null;
+    svg.classList.remove("val");
+    svg.querySelectorAll(".tre-hluti").forEach(function (el) { el.classList.remove("dauft", "valid"); });
+    uppfaeraAuka();
     personaSpjald.innerHTML = upphafsSpjald;
   }
-
-  cy.on("tap", "node", function (e) { veljaPersonu(e.target.id()); });
-  cy.on("tap", function (e) { if (e.target === cy) hreinsa(); });
 
   // ---------- Kortið ----------
 
@@ -204,10 +292,6 @@
   function laga() {
     kort.invalidateSize();
     kort.fitBounds(allirPunktar, { paddingTopLeft: [30, 30], paddingBottomRight: [90, 30] });
-    cy.resize();
-    cy.fit(undefined, 30);
-    // Á mjóum skjá yrðu nöfnin ólæsileg; þysja frekar inn og leyfa að draga netið til.
-    if (cy.zoom() < 0.5) cy.zoom({ level: 0.5, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
   }
   laga();
   window.addEventListener("load", laga);
@@ -220,8 +304,8 @@
       '<span class="stadur-merki" style="color:' + stadaLitur(s.id) + '">Staður</span>' +
       "<h3>" + s.nafn + "</h3><p>" + s.lysing + "</p>" +
       "<strong>Persónur</strong>" +
-      '<ul class="personulisti">' + folk.map(function (p) {
-        return '<li><button data-id="' + p.id + '">' + (p.tengipersona ? "<em>" + p.nafn + "</em>" : p.nafn) + "</button></li>";
+      '<ul class="personulisti">' + folk.map(function (per) {
+        return '<li><button data-id="' + per.id + '">' + (per.tengipersona || per.aukapersona ? "<em>" + per.nafn + "</em>" : per.nafn) + "</button></li>";
       }).join("") + "</ul>";
     stadurSpjald.querySelectorAll("button[data-id]").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -229,9 +313,12 @@
         document.getElementById("net-titill").scrollIntoView({ behavior: "smooth" });
       });
     });
-    // Draga fram fólk staðarins í netinu
-    cy.elements().removeClass("valid").addClass("dauft");
-    folk.forEach(function (p) { cy.getElementById(p.id).removeClass("dauft"); });
+    // Draga fram fólk staðarins í ættartrénu
+    var hopur = {};
+    folk.forEach(function (per) { hopur[per.id] = true; });
+    valinn = null;
+    dragaFram(hopur, null);
+    uppfaeraAuka();
   }
 
   // ---------- Lykilorð (staðgengill) ----------

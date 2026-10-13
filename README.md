@@ -2,10 +2,10 @@
 
 Gagnvirkur vefur um persónur og ættartengsl í sögnunum um Trójustríðið.
 
-- `index.html` – inngangssíða með korti (Ólympsfjall, Sparta, Mýkena, Íþaka, Trója) og gagnvirku ættarneti.
+- `index.html` – inngangssíða með korti (Ólympsfjall, Sparta, Mýkena, Íþaka, Trója) og gagnvirku ættartré.
 - `framhald.html` – staðgengill fyrir næsta hluta (Phþía), opnast með lykilorði.
 - `gogn.js` – allar persónur, staðir og tengsl. Bættu við eða breyttu hér.
-- `app.js` – kort (Leaflet) og ættarnet (Cytoscape.js).
+- `app.js` – kort (Leaflet) og ættartré (teiknað sem SVG). Uppsetning trésins er í `tre` í `gogn.js`.
 
 ## Birting
 Kveiktu á GitHub Pages (Settings → Pages → Deploy from branch) og veldu greinina og `/ (root)`.

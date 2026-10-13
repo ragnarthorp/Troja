@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Persónur Trójustríðsins</title>
-  <meta name="description" content="Gagnvirkt kort og ættarnet persóna í sögunni af Tróju.">
+  <meta name="description" content="Gagnvirkt kort og ættartré persóna í sögunni af Tróju.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -15,7 +15,7 @@
     <p class="yfir">Ættartengsl í sögnunum um Trójustríðið</p>
     <h1>Persónur Trójustríðsins</h1>
     <p class="inngangur">Guðir á Ólympsfjalli, konungsættir í Spörtu og Mýkenu, Ódysseifur frá Íþöku og konungsfjölskyldan í Tróju.
-      Smelltu á stað á kortinu eða persónu í ættarnetinu til að sjá hvernig allt tengist.</p>
+      Smelltu á stað á kortinu eða persónu í ættartrénu til að sjá hvernig allt tengist.</p>
   </header>
 
   <main>
@@ -32,17 +32,26 @@
     </section>
 
     <section class="hluti" aria-labelledby="net-titill">
-      <h2 id="net-titill">Ættarnetið</h2>
-      <p class="skyring">Smelltu á persónu til að lesa um hana og draga fram tengsl hennar. Dragðu til að færa, skrunaðu til að þysja.</p>
-      <div class="sia" id="sia" aria-label="Sía tengsl"></div>
-      <div class="net-vefur">
-        <div id="net" role="img" aria-label="Ættarnet persóna"></div>
-        <aside id="persona-upplysingar" class="spjald" aria-live="polite">
-          <h3>Veldu persónu</h3>
-          <p>Litur rammans sýnir hvaðan persónan kemur.</p>
-          <ul class="stada-litir" id="stada-litir"></ul>
-        </aside>
+      <h2 id="net-titill">Ættartréð</h2>
+      <p class="skyring">Hver röð er ein kynslóð. Systkini standa hlið við hlið undir sameiginlegri línu frá foreldrum sínum og makar eru tengdir með tvöfaldri línu.
+        Smelltu á persónu til að lesa um hana og draga fram tengsl hennar.</p>
+      <div class="sia" id="sia" aria-label="Sýna fleiri tengsl"></div>
+      <p class="farsima-vis">↔ Renndu trénu til hliðar til að sjá allt.</p>
+      <div class="tre-rammi">
+        <svg id="tre" viewBox="-10 15 1190 495" role="group" aria-label="Ættartré persóna"></svg>
       </div>
+      <ul class="skyringar" aria-label="Skýringar">
+        <li><svg width="34" height="12"><line x1="2" y1="3" x2="32" y2="3" class="s-hjon"/><line x1="2" y1="9" x2="32" y2="9" class="s-hjon"/></svg>Hjónaband</li>
+        <li><svg width="34" height="16"><path d="M17 1 V7 M5 7 H29 M5 7 V15 M29 7 V15" class="s-aett"/></svg>Foreldrar og börn</li>
+        <li><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" class="s-seifs"/></svg><span class="stjarna-t">★</span> Faðir er Seifur, ekki Tindareifur</li>
+        <li><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" class="s-fostur"/></svg>Fóstur</li>
+        <li><svg width="34" height="18"><rect x="2" y="2" width="30" height="14" rx="4" class="s-auka"/></svg>Sýnd til skýringar (ekki á listanum)</li>
+      </ul>
+      <aside id="persona-upplysingar" class="spjald" aria-live="polite">
+        <h3>Veldu persónu</h3>
+        <p>Liturinn á jaðri spjaldsins sýnir hvaðan persónan kemur.</p>
+        <ul class="stada-litir" id="stada-litir"></ul>
+      </aside>
     </section>
 
     <section class="hluti" aria-labelledby="saga-titill">
@@ -88,7 +97,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
   <script src="gogn.js"></script>
   <script src="app.js"></script>
 </body>
