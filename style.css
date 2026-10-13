@@ -141,7 +141,7 @@ footer { padding-top: 16px; padding-bottom: 40px; color: var(--daufur); font-siz
   background: var(--flotur); border: 1px solid var(--lina); border-radius: 10px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-#tre { display: block; width: 100%; min-width: 1040px; height: auto; font-family: "Source Sans 3", system-ui, sans-serif; }
+#tre { display: block; width: 100%; height: auto; font-family: "Source Sans 3", system-ui, sans-serif; }
 #tre line, #tre path { fill: none; stroke: var(--daufur); stroke-width: 2; }
 #tre .hjon line { stroke: var(--sparta); stroke-width: 2; }
 #tre line.seifs { stroke: var(--olympos); stroke-dasharray: 5 4; stroke-width: 2.5; }
@@ -184,4 +184,5 @@ footer { padding-top: 16px; padding-bottom: 40px; color: var(--daufur); font-siz
 .s-auka { fill: none; stroke: var(--daufur); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .stjarna-t { color: var(--olympos); }
 .farsima-vis { display: none; font-size: .85rem; color: var(--daufur); margin: 0 0 6px; }
-@media (max-width: 900px) { .farsima-vis { display: block; } }
+@media (max-width: 760px) { .farsima-vis { display: block; } }
+@media (max-width: 760px) { #tre { min-width: 1040px; } }

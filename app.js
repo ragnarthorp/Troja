@@ -21,6 +21,13 @@
   var lagLinur = svgStak("g", { "class": "lag-linur" });
   var lagAuka = svgStak("g", { "class": "lag-auka" });
   var lagSpjold = svgStak("g", { "class": "lag-spjold" });
+  // Teiknisvæðið reiknað út frá staðsetningu persóna, svo ekkert klippist af
+  (function () {
+    var xs = G.personur.map(function (q) { return q.x; }), ys = G.personur.map(function (q) { return q.y; });
+    var x0 = Math.min.apply(null, xs) - B / 2 - 12, x1 = Math.max.apply(null, xs) + B / 2 + 12;
+    var y0 = Math.min.apply(null, ys) - H / 2 - 12, y1 = Math.max.apply(null, ys) + H / 2 + 40;
+    svg.setAttribute("viewBox", [x0, y0, x1 - x0, y1 - y0].join(" "));
+  })();
   svg.appendChild(lagAuka);
   svg.appendChild(lagLinur);
   svg.appendChild(lagSpjold);
