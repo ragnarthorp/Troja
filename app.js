@@ -238,7 +238,9 @@
       case "stjup": return ut ? (t.merki.indexOf("stjúp") === 0 ? "Stjúpbarn: " : "Fósturbarn: ") + annar
                               : stor(t.merki) + ": " + annar;
       case "afkomandi": return ut ? "Afkomandi: " + annar + " (" + t.merki + ")" : "Forfaðir: " + annar + " (" + t.merki + ")";
-      case "saga": return ut ? stor(t.merki) + ": " + annar : stor(t.merki) + ": " + annar;
+      case "saga":
+        if (t.samhverft) return t.merki + ": " + annar;
+        return ut ? stor(t.merki) + ": " + annar : annar + " " + t.merki;
     }
     return annar;
   }
@@ -290,10 +292,10 @@
   var allirPunktar = [];
   var stadurSpjald = document.getElementById("stadur-upplysingar");
 
-  function merki(texti, bakgrunnur, laest) {
+  function merki(texti, bakgrunnur) {
     return L.divIcon({
       className: "",
-      html: '<div class="merki' + (laest ? " laest" : "") + '" style="' + (bakgrunnur ? "background:" + bakgrunnur : "") + '">' + texti + "</div>",
+      html: '<div class="merki" style="background:' + bakgrunnur + '">' + texti + "</div>",
       iconSize: [30, 30], iconAnchor: [15, 15]
     });
   }
@@ -318,15 +320,6 @@
     }).addTo(kort);
   });
 
-  G.laestirStadir.forEach(function (s) {
-    L.marker([s.lat, s.lng], { icon: merki("🔒", null, true), title: s.nafn + " (læst)" })
-      .addTo(kort)
-      .bindTooltip("?", { permanent: true, direction: "right", offset: [16, 0], className: "merki-texti" })
-      .on("click", function () {
-        stadurSpjald.innerHTML = "<h3>Læstur staður</h3><p>Þessi staður og fólkið sem honum tengist opnast í næsta hluta.</p>";
-      });
-    allirPunktar.push([s.lat, s.lng]);
-  });
 
   function laga() {
     kort.invalidateSize();
@@ -360,35 +353,4 @@
     uppfaeraAuka();
   }
 
-  // ---------- Lykilorð (staðgengill) ----------
-  // ATH: Þetta er aðeins einföld hindrun í vafranum, ekki raunverulegt öryggi.
-  // Allt efni á GitHub Pages er opinbert. Lykilorðið er geymt sem SHA-256 tætigildi.
-  var LYKIL_TAETI = "8ac19add73ad824d6289af9231f5e18cba6fbf6724952d97f993c564661085c9";
-
-  function taeta(str) {
-    var gogn = new TextEncoder().encode(str);
-    return crypto.subtle.digest("SHA-256", gogn).then(function (buf) {
-      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
-        return b.toString(16).padStart(2, "0");
-      }).join("");
-    });
-  }
-
-  document.getElementById("las-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var svar = document.getElementById("las-svar");
-    var gildi = document.getElementById("lykilord").value.trim().toLowerCase();
-    if (!window.crypto || !crypto.subtle) {
-      svar.textContent = "Vafrinn styður ekki lykilorðsathugun (síðan þarf að vera á https).";
-      return;
-    }
-    taeta(gildi).then(function (h) {
-      if (h === LYKIL_TAETI) {
-        try { sessionStorage.setItem("troja-opid", "1"); } catch (_) {}
-        window.location.href = "framhald.html";
-      } else {
-        svar.textContent = "Rangt lykilorð. Reyndu aftur.";
-      }
-    });
-  });
 })();

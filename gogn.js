@@ -1,6 +1,4 @@
-// Gögn fyrir inngangssíðuna: staðir, persónur og tengsl.
-// Sonur Þetisar og Peleifs er
-// viljandi ekki hér – þær bíða næsta hluta á bak við lykilorð.
+// Gögn fyrir síðuna: staðir, persónur og tengsl.
 
 window.TROJA = {
   stadir: [
@@ -41,17 +39,14 @@ window.TROJA = {
     [40.7, 27.6], [40.85, 28.6], [41.0, 29.0], [41.12, 29.06], [41.22, 29.12], [41.45, 29.4], [41.9, 30.0]
   ],
 
-  // Staðir sem verða opnaðir síðar – sýndir sem læstir á kortinu.
-  laestirStadir: [
-  ],
 
   personur: [
     // Guðirnir
     { id: "seifur", nafn: "Seifur", stadur: "olympos", x: 605, y: 50,
-      lysing: "Sonur títananna Krónosar og Reu. Bróðir og eiginmaður Heru. Faðir Aþenu, Helenu og Polídefkesar, og Afródítu samkvæmt Hómer. Faðir Hermesar. Forfaðir Príamosar, Hektors, Agamemnons, Menelásar, Ódysseifs og Peleifs – og fleiri sem enn eru huldir." },
+      lysing: "Sonur títananna Krónosar og Reu. Bróðir og eiginmaður Heru. Faðir Aþenu, Helenu og Polídefkesar, og Afródítu samkvæmt Hómer. Faðir Hermesar. Forfaðir Príamosar, Hektors, Agamemnons, Menelásar, Ódysseifs, Peleifs og Akkillesar." },
     { id: "hera", nafn: "Hera", stadur: "olympos", x: 760, y: 50,
       lysing: "Dóttir Krónosar og Reu. Systir og eiginkona Seifs. Stjúpmóðir Aþenu. Ól upp sædísina Þetisi." },
-    { id: "eris", nafn: "Eris", stadur: "olympos", x: 1232, y: 50,
+    { id: "eris", nafn: "Eris", stadur: "olympos", x: 1262, y: 50,
       lysing: "Gyðja sundrungar. Hún var ein guðanna ekki boðin í brúðkaup Þetisar og Peleifs og kastaði þangað gullepli með áletruninni „Te kalliste“ – „handa þeirri fegurstu“. Þaðan kemur orðið þrætuepli." },
     { id: "hermes", nafn: "Hermes", stadur: "olympos", x: 480, y: 180,
       aett: "Seifur → Hermes → Átólýkos → Antíkleia → Ódysseifur",
@@ -95,11 +90,15 @@ window.TROJA = {
       lysing: "Dóttir Íkaríosar og eiginkona Ódysseifs. Bræðrungur Helenu, Klítemnestru, Kastors og Polídefkesar. Móðir Telemakkosar. Ekki á upphaflega listanum – sýnd til skýringar." },
 
     // Þessalía
-    { id: "peleifur", nafn: "Peleifur", stadur: "thessalia", x: 1165, y: 180,
+    { id: "peleifur", nafn: "Peleifur", stadur: "thessalia", x: 1195, y: 180,
       aett: "Seifur → Ajakos → Peleifur",
-      lysing: "Sonur Ajakosar og sonarsonur Seifs. Konungur í Phþíu í Þessalíu og eiginmaður Þetisar – einn fárra dauðlegra manna sem fékk gyðju fyrir konu. Allir guðirnir mættu í brúðkaupið, nema einn." },
-    { id: "thetis", nafn: "Þetis", stadur: "thessalia", x: 1300, y: 180,
-      lysing: "Sædís, dóttir sjávarguðsins Nereifs. Alin upp af Heru. Seifur og Póseidon girntust hana báðir, en spáð var að hún myndi ala son sem yrði meiri en faðir hans. Því var hún gefin dauðlegum manni, Peleifi. Í brúðkaupi þeirra kastaði Eris gulleplinu." },
+      lysing: "Sonur Ajakosar og sonarsonur Seifs. Konungur í Phþíu í Þessalíu og eiginmaður Þetisar – einn fárra dauðlegra manna sem fékk gyðju fyrir konu. Allir guðirnir mættu í brúðkaupið, nema einn. Faðir Akkillesar." },
+    { id: "thetis", nafn: "Þetis", stadur: "thessalia", x: 1330, y: 180,
+      lysing: "Sædís, dóttir sjávarguðsins Nereifs. Alin upp af Heru. Seifur og Póseidon girntust hana báðir, en spáð var að hún myndi ala son sem yrði meiri en faðir hans. Því var hún gefin dauðlegum manni, Peleifi. Í brúðkaupi þeirra kastaði Eris gulleplinu. Hún dýfði syni sínum Akkillesi í ána Stýx til að gera hann ódauðlegan, en hællinn sem hún hélt um varð ekki fyrir vatninu. Bað Seif um að hjálpa Trójumönnum svo heiður Akkillesar yrði endurreistur." },
+
+    { id: "akkilles", nafn: "Akkilles", stadur: "thessalia", x: 1262, y: 310, tengipersona: true,
+      aett: "Seifur → Ajakos → Peleifur → Akkilles",
+      lysing: "Sonur Þetisar og Peleifs, barnabarnabarn Seifs. Mesta hetja Grikkja. Nær ósæranlegur eftir að móðir hans dýfði honum í Stýx – nema á hælnum. Alinn upp af kentárnum Kíroni. Valdi stutt líf með eilífri frægð fremur en langa ævi. Reiði hans við Agamemnon er meginefni Ilíonskviðu. Drap Hektor til að hefna Patróklosar, vinar síns, en afhenti Príamosi líkið. Felldur af París með ör í hælinn. Faðir Neoptólemosar, sem kvæntist Hermíónu, dóttur Helenu." },
 
     // Trója
     { id: "priamos", nafn: "Príamos", stadur: "troja", x: 880, y: 180,
@@ -151,11 +150,13 @@ window.TROJA = {
     { fra: "agamemnon", til: "klitemnestra", tegund: "hjon" },
     { fra: "menelas", til: "helena", tegund: "hjon" },
     { fra: "afrodita", til: "paris", tegund: "saga", merki: "lofar Helenu" },
-    { fra: "helena", til: "paris", tegund: "saga", merki: "loforð Afródítu" },
+    { fra: "helena", til: "paris", tegund: "saga", merki: "Loforð Afródítu", samhverft: true },
     { fra: "priamos", til: "hekuba", tegund: "hjon" },
     { fra: "odysseifur", til: "penelopa", tegund: "hjon" },
     { fra: "peleifur", til: "thetis", tegund: "hjon" },
     { fra: "paris", til: "ojona", tegund: "hjon", merki: "meðan hann var hirðir" },
+    { fra: "peleifur", til: "akkilles", tegund: "foreldri" },
+    { fra: "thetis", til: "akkilles", tegund: "foreldri" },
 
     // Systkini sem ekki sjást í gegnum sameiginlegt foreldri á kortinu
     { fra: "kastor", til: "polidefkes", tegund: "systkini", merki: "tvíburar" },
@@ -177,17 +178,20 @@ window.TROJA = {
     { fra: "seifur", til: "peleifur", tegund: "afkomandi", merki: "um Ajakos" },
 
     // Atburðir sögunnar
-    { fra: "paris", til: "hera", tegund: "saga", merki: "dómur" },
-    { fra: "paris", til: "athena", tegund: "saga", merki: "dómur" },
+    { fra: "paris", til: "hera", tegund: "saga", merki: "dæmir" },
+    { fra: "paris", til: "athena", tegund: "saga", merki: "dæmir" },
     { fra: "paris", til: "afrodita", tegund: "saga", merki: "velur" },
     { fra: "afrodita", til: "helena", tegund: "saga", merki: "lofar París" },
-    { fra: "eris", til: "thetis", tegund: "saga", merki: "gulleplið í brúðkaupinu" },
-    { fra: "eris", til: "peleifur", tegund: "saga", merki: "gulleplið í brúðkaupinu" },
+    { fra: "eris", til: "thetis", tegund: "saga", merki: "kastar gulleplinu í brúðkaup" },
+    { fra: "eris", til: "peleifur", tegund: "saga", merki: "kastar gulleplinu í brúðkaup" },
     { fra: "hermes", til: "paris", tegund: "saga", merki: "leiðir gyðjurnar til" },
     { fra: "kassandra", til: "paris", tegund: "saga", merki: "spáir um" },
-    { fra: "odysseifur", til: "helena", tegund: "saga", merki: "biðill" },
-    { fra: "odysseifur", til: "menelas", tegund: "saga", merki: "biðlaeiðurinn" },
-    { fra: "odysseifur", til: "agamemnon", tegund: "saga", merki: "biðlaeiðurinn" }
+    { fra: "akkilles", til: "hektor", tegund: "saga", merki: "drepur" },
+    { fra: "paris", til: "akkilles", tegund: "saga", merki: "drepur með ör í hælinn" },
+    { fra: "agamemnon", til: "akkilles", tegund: "saga", merki: "tekur Bríseis frá" },
+    { fra: "odysseifur", til: "helena", tegund: "saga", merki: "biðlar til" },
+    { fra: "odysseifur", til: "menelas", tegund: "saga", merki: "leggur biðlaeiðinn fyrir" },
+    { fra: "odysseifur", til: "agamemnon", tegund: "saga", merki: "leggur biðlaeiðinn fyrir" }
   ],
 
   // Uppsetning ættartrésins. Hnit persóna eru x/y hér að ofan (y = kynslóðaröð).
@@ -199,7 +203,8 @@ window.TROJA = {
       { foreldrar: ["tindareifur", "leda"], born: ["kastor", "polidefkes", "klitemnestra", "helena"],
         annarFadir: ["polidefkes", "helena"] },
       { foreldrar: ["priamos", "hekuba"], born: ["paris", "hektor", "kassandra", "deifobos"] },
-      { foreldrar: ["ikarios"], born: ["penelopa"] }
+      { foreldrar: ["ikarios"], born: ["penelopa"] },
+      { foreldrar: ["peleifur", "thetis"], born: ["akkilles"] }
     ],
     hjon: [
       ["seifur", "hera"], ["tindareifur", "leda"], ["priamos", "hekuba"],
@@ -229,6 +234,8 @@ window.TROJA = {
       { fra: "paris", til: "afrodita", tegund: "saga", merki: "dómur" },
       { fra: "afrodita", til: "helena", tegund: "saga", merki: "lofar París" },
       { fra: "hermes", til: "paris", tegund: "saga", merki: "leiðir gyðjurnar" },
+      { fra: "akkilles", til: "hektor", tegund: "saga", merki: "drepur" },
+      { fra: "paris", til: "akkilles", tegund: "saga", merki: "ör í hælinn" },
       { fra: "odysseifur", til: "helena", tegund: "saga", merki: "biðill" },
       { fra: "odysseifur", til: "agamemnon", tegund: "saga", merki: "biðlaeiðurinn" }
     ]
