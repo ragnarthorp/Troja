@@ -15,7 +15,7 @@
   // ---------- Ættartréð ----------
 
   var SVGNS = "http://www.w3.org/2000/svg";
-  var B = 112, H = 50; // breidd og hæð spjalda
+  var B = 106, H = 50; // breidd og hæð spjalda
   var T = G.tre;
   var svg = document.getElementById("tre");
   var lagLinur = svgStak("g", { "class": "lag-linur" });
@@ -107,6 +107,15 @@
     var x1 = Math.min(a.x, b.x) + B / 2, x2 = Math.max(a.x, b.x) - B / 2;
     lina(g, x1, a.y, x2, a.y);
     merkiTexti(g, (x1 + x2) / 2, a.y - 7, s[2]);
+  });
+
+  // Lína frá persónu niður á miðja hjónabandslínu (Eris → brúðkaupið)
+  T.brudkaup.forEach(function (b) {
+    var a = p(b.fra), m1 = p(b.hjon[0]), m2 = p(b.hjon[1]);
+    var g = teikna(lagLinur, [b.fra].concat(b.hjon), "brudkaup");
+    var mx = (m1.x + m2.x) / 2;
+    lina(g, a.x, a.y + H / 2, mx, m1.y - 4);
+    merkiTexti(g, a.x + 8, (a.y + H / 2 + m1.y) / 2 + 4, b.merki, "vinstri");
   });
 
   T.loford.forEach(function (s) {
@@ -292,9 +301,21 @@
   G.stadir.forEach(function (s) {
     var m = L.marker([s.lat, s.lng], { icon: merki(s.nafn.charAt(0), stadaLitur(s.id)), title: s.nafn, keyboard: true })
       .addTo(kort)
-      .bindTooltip(s.nafn, { permanent: true, direction: "right", offset: [16, 0], className: "merki-texti" });
+      .bindTooltip(s.nafn, { permanent: true, direction: s.merkiAtt || "right",
+        offset: s.merkiAtt === "bottom" ? [0, 14] : [16, 0], className: "merki-texti" });
     m.on("click", function () { synaStad(s); });
     allirPunktar.push([s.lat, s.lng]);
+  });
+
+  // Siglingaleiðin og heiti hafa, sunda og landa (endi leiðarinnar er með í þysjun kortsins)
+  allirPunktar.push(G.siglingaleid[G.siglingaleid.length - 1]);
+  L.polyline(G.siglingaleid, { color: "#1d5f8a", weight: 3, dashArray: "8 7", opacity: 0.85, interactive: false })
+    .addTo(kort);
+  G.heiti.forEach(function (h) {
+    L.marker([h.lat, h.lng], {
+      icon: L.divIcon({ className: "", html: '<span class="kortaheiti' + (h.haf ? " haf" : "") + (h.sund ? " sund" : "") + '">' + h.nafn + "</span>", iconSize: null }),
+      interactive: false, keyboard: false
+    }).addTo(kort);
   });
 
   G.laestirStadir.forEach(function (s) {
@@ -309,7 +330,7 @@
 
   function laga() {
     kort.invalidateSize();
-    kort.fitBounds(allirPunktar, { paddingTopLeft: [30, 30], paddingBottomRight: [90, 30] });
+    kort.fitBounds(allirPunktar, { paddingTopLeft: [20, 20], paddingBottomRight: [70, 20] });
   }
   laga();
   window.addEventListener("load", laga);
@@ -317,7 +338,7 @@
   window.addEventListener("resize", function () { clearTimeout(bidTimi); bidTimi = setTimeout(laga, 200); });
 
   function synaStad(s) {
-    var folk = G.personur.filter(function (p) { return p.stadur === s.id; });
+    var folk = G.personur.filter(function (p) { return p.stadur === s.id || (s.tengist || []).indexOf(p.id) >= 0; });
     stadurSpjald.innerHTML =
       '<span class="stadur-merki" style="color:' + stadaLitur(s.id) + '">Staður</span>' +
       "<h3>" + s.nafn + "</h3><p>" + s.lysing + "</p>" +
